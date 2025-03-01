@@ -8,8 +8,22 @@ public class MomoHook extends AbstractHook {
     }
 
     @Override
-    protected void onStart(AppContext context) {
-        LogUtils.print("加载陌陌LSposed模块");
+    protected void onInit(AppContext context) {
+        super.onInit(context);
+        MomoFunc fns = new MomoFunc(context);
+        registerMethod(fns.getIMJ());
+    }
+
+    @Override
+    public void onMethodHook(ClassMethod.Dump dump) {
+        super.onMethodHook(dump);
+        LogUtils.print(dump.getTag() + "@进入");
+    }
+
+    @Override
+    public void onMethodLeave(ClassMethod.Dump dump) {
+        super.onMethodLeave(dump);
+        LogUtils.print(dump.getTag() + "@离开");
     }
 
 }

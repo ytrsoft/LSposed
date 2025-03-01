@@ -2,13 +2,13 @@ package com.ytrsoft;
 
 import android.os.Bundle;
 
-public class MomoAdapter {
+public class MomoFunc {
 
     private final AppContext context;
 
     private static final String PKG_IMJ = "com.immomo.momo.im.e$1";
 
-    public MomoAdapter(AppContext context) {
+    public MomoFunc(AppContext context) {
         this.context = context;
     }
 
@@ -23,7 +23,7 @@ public class MomoAdapter {
         overload.setParamTypes(pts);
         overload.setTarget(t);
         overload.setName("a");
-        overload.setPath(PKG_IMJ + "." + overload.getName());
+        overload.setTag("IM_REC");
         return overload;
     }
 
