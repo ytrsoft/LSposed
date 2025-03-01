@@ -3,8 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.ytrsoft'
-    compileSdk 34
+    compileSdkVersion 34
 
     buildFeatures {
         buildConfig true
@@ -12,11 +11,13 @@ android {
 
     defaultConfig {
         applicationId "com.ytrsoft"
-        minSdk 24
-        targetSdk 34
+        minSdkVersion 24
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
     }
+
+    namespace "com.ytrsoft"
 
     buildTypes {
         release {
