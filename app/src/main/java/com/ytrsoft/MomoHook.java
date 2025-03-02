@@ -8,7 +8,7 @@ import com.ytrsoft.base.Dump;
 import com.ytrsoft.base.Overload;
 import com.ytrsoft.utils.Console;
 
-public class MomoApp extends AbstractHook {
+public class MomoHook extends AbstractHook {
 
     private static final String TAG_REC = "REC";
 

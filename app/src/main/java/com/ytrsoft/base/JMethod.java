@@ -30,7 +30,7 @@ public class JMethod extends XC_MethodHook {
         if (handler != null) {
             Dump dump = new Dump();
             dump.setArgs(param.args);
-            dump.setTag(overload.getName());
+            dump.setTag(overload.getTag());
             handler.activated(dump);
         }
     }
@@ -41,7 +41,7 @@ public class JMethod extends XC_MethodHook {
         if (handler != null) {
             Dump dump = new Dump();
             dump.setArgs(param.args);
-            dump.setTag(overload.getName());
+            dump.setTag(overload.getTag());
             handler.deactivated(dump);
         }
     }
