@@ -28,7 +28,7 @@ public class JMethod extends XC_MethodHook {
     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
         super.afterHookedMethod(param);
         if (handler != null) {
-            Dump dump = new Dump();
+            Dump dump = new Dump(param);
             dump.setArgs(param.args);
             dump.setType(overload.getType());
             handler.activated(dump);
@@ -39,7 +39,7 @@ public class JMethod extends XC_MethodHook {
     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
         super.beforeHookedMethod(param);
         if (handler != null) {
-            Dump dump = new Dump();
+            Dump dump = new Dump(param);
             dump.setArgs(param.args);
             dump.setType(overload.getType());
             handler.deactivated(dump);
