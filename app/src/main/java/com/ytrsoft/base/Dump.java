@@ -1,17 +1,19 @@
 package com.ytrsoft.base;
 
+import com.ytrsoft.handler.DumpType;
+
 public class Dump {
 
-    private String tag;
+    private DumpType type;
     private Object[] args;
     private Object result;
 
-    public String getTag() {
-        return tag;
+    public DumpType getType() {
+        return type;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setType(DumpType type) {
+        this.type = type;
     }
 
     public Object[] getArgs() {
