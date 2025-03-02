@@ -42,4 +42,5 @@ dependencies {
     compileOnly libs.api
     implementation libs.appcompat
     implementation libs.material
+    implementation libs.hutool.all
 }

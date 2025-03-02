@@ -8,12 +8,8 @@ public final class Console {
         throw new UnsupportedOperationException();
     }
 
-    public static void log(String msg) {
-        XposedBridge.log(msg);
-    }
-
     public static void log(String tag, String msg) {
-        XposedBridge.log(String.format("<%s> %s", tag, msg));
+        XposedBridge.log(String.format("[%s] %s", tag, msg));
     }
 
 }
