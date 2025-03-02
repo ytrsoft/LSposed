@@ -1,4 +1,4 @@
-package com.ytrsoft;
+package com.ytrsoft.utils;
 
 import de.robv.android.xposed.XposedBridge;
 
@@ -10,6 +10,10 @@ public final class Console {
 
     public static void log(String msg) {
         XposedBridge.log(msg);
+    }
+
+    public static void log(String tag, String msg) {
+        XposedBridge.log(String.format("<%s> %s", tag, msg));
     }
 
 }

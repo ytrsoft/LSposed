@@ -1,4 +1,4 @@
-package com.ytrsoft;
+package com.ytrsoft.base;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,19 +6,21 @@ import android.content.Context;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
-public abstract class AbstractHook implements IXposedHookLoadPackage, ClassMethod.Caller {
+public abstract class AbstractHook implements IXposedHookLoadPackage, InvokeHandler {
 
-    private final String APP_TAG = "APP";
+    private AppContext mContext;
+
+    private final String TAG_APP = "APP";
 
     public Overload getApplicationOverload() {
-        Class<?>[] pts = new Class[] {
-            Context.class,
+        Class<?>[] types = new Class[] {
+            Context.class
         };
         Overload overload = new Overload();
-        overload.setParamTypes(pts);
+        overload.setTypes(types);
         overload.setTarget(Application.class);
         overload.setName("attach");
-        overload.setTag(APP_TAG);
+        overload.setTag(TAG_APP);
         return overload;
     }
 
@@ -27,33 +29,31 @@ public abstract class AbstractHook implements IXposedHookLoadPackage, ClassMetho
         String s1 = registerPackage();
         String s2 = params.packageName;
         if (!s1.equals(s2)) {
-            AppContext ctx = new AppContext(params);
-            onInit(ctx);
+            mContext = new AppContext(params);
+            onCreated(mContext);
             Overload app = getApplicationOverload();
             registerMethod(app);
         }
     }
 
     protected void registerMethod(Overload overload) {
-        ClassMethod cm = new ClassMethod(overload);
-        cm.setCaller(this);
+        JMethod method = new JMethod(overload);
+        method.setHandler(this);
     }
 
     protected abstract String registerPackage();
 
-    protected void onInit(AppContext context) {}
+    protected void onCreated(AppContext context) {}
 
-    protected void onStart(ClassLoader loader) {}
-
-    @Override
-    public void onMethodHook(ClassMethod.Dump dump) {}
+    protected void onMounted(AppContext context) {}
 
     @Override
-    public void onMethodLeave(ClassMethod.Dump dump) {
-        if (dump.getTag().equals(APP_TAG)) {
-            Context context = (Context) dump.getArgs()[0];
-            ClassLoader loader = context.getClassLoader();
-            onStart(loader);
+    public void activated(Dump dump) {}
+
+    @Override
+    public void deactivated(Dump dump) {
+        if (dump.getTag().equals(TAG_APP)) {
+            onMounted(mContext);
         }
     }
 

@@ -1,6 +1,7 @@
-package com.ytrsoft;
+package com.ytrsoft.base;
 
-import de.robv.android.xposed.XposedHelpers;
+import com.ytrsoft.utils.Xposed;
+
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class AppContext {
@@ -12,7 +13,6 @@ public class AppContext {
     }
 
     public Class<?> getClass(String pkg) {
-        return XposedHelpers.findClass(pkg, params.classLoader);
+        return Xposed.findClass(pkg, params.classLoader);
     }
-
 }
