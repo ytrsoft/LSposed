@@ -2,12 +2,14 @@
 agp = "8.3.2"
 api = "82"
 appcompat = "1.7.0"
+commonsLang3 = "3.17.0"
 hutoolAll = "5.8.36"
 material = "1.12.0"
 
 [libraries]
 api = { module = "de.robv.android.xposed:api", version.ref = "api" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
 hutool-all = { module = "cn.hutool:hutool-all", version.ref = "hutoolAll" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 

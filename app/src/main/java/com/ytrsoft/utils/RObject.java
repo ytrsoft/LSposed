@@ -14,4 +14,12 @@ public class RObject {
         return (String) ReflectUtil.getFieldValue(target, key);
     }
 
+    public RObject getObject(String key) {
+        return new RObject(ReflectUtil.getFieldValue(target, key));
+    }
+
+    public RObject invoke(String name, Object... args) {
+        return new RObject(ReflectUtil.invoke(target, name, args));
+    }
+
 }

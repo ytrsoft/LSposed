@@ -1,19 +1,30 @@
-package com.ytrsoft.handler;
+package com.ytrsoft.hook;
+
 
 import android.os.Bundle;
 
-import com.ytrsoft.utils.Console;
+import com.ytrsoft.annotation.Method;
+import com.ytrsoft.annotation.Overload;
+import com.ytrsoft.core.Param;
+import com.ytrsoft.utils.Logger;
 import com.ytrsoft.utils.RObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class IMRHandler extends DefaultHandler {
+@Method("com.immomo.momo.im.e$1.a")
+@Overload(types = {
+    String.class,
+    Bundle.class,
+    Object.class
+})
+public class RecHook extends DefaultHook {
 
     @Override
-    public void enter(Object[] e) {
-        Bundle bundle = (Bundle) e[1];
+    public void enter(Param param) {
+        super.enter(param);
+        Bundle bundle = (Bundle) param.args[1];
         if (bundle.containsKey("msgs")) {
             Object msgs = bundle.get("msgs");
             if (msgs instanceof ArrayList<?>) {
@@ -33,7 +44,6 @@ public class IMRHandler extends DefaultHandler {
         RObject message = new RObject(msg);
         String id = message.getString("remoteId");
         String content = message.getString("content");
-        Console.log(id, content);
+        Logger.i(String.format("%s:%s", id, content));
     }
-
 }
