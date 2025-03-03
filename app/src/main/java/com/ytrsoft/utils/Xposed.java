@@ -16,8 +16,12 @@ public final class Xposed {
         XposedHelpers.findAndHookMethod(clz, name, args);
     }
 
-    public static Class<?> findClass(String pkg, ClassLoader cl) {
-        return XposedHelpers.findClass(pkg, cl);
+    public static Object call(Object instance, String name, Object[] args) {
+        return XposedHelpers.callMethod(instance, name, args);
+    }
+
+    public static Object call(Class<?> clz, String name, Object[] args) {
+        return XposedHelpers.callStaticMethod(clz, name, args);
     }
 
 }
