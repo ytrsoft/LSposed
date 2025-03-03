@@ -14,6 +14,10 @@ public class RObject {
         return (String) ReflectUtil.getFieldValue(target, key);
     }
 
+    public int getInt(String key) {
+        return (int) ReflectUtil.getFieldValue(target, key);
+    }
+
     public RObject getObject(String key) {
         return new RObject(ReflectUtil.getFieldValue(target, key));
     }
