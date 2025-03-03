@@ -4,17 +4,17 @@ package com.ytrsoft.hook;
 import android.os.Bundle;
 
 import com.ytrsoft.annotation.Path;
-import com.ytrsoft.annotation.Overload;
+import com.ytrsoft.annotation.Match;
 import com.ytrsoft.core.Param;
+import com.ytrsoft.type.Message;
 import com.ytrsoft.utils.Logger;
-import com.ytrsoft.utils.RObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Path("com.immomo.momo.im.e$1.a")
-@Overload(types = {
+@Match(types = {
     String.class,
     Bundle.class,
     Object.class
@@ -41,9 +41,9 @@ public class RecHook extends DefaultHook {
     }
 
     private void handleMessage(Object msg) {
-        RObject message = new RObject(msg);
-        String id = message.getString("remoteId");
-        String content = message.getString("content");
+        Message message = new Message(msg);
+        String id = message.getRemoteId();
+        String content = message.getContent();
         Logger.i("<%s - %s>", id, content);
     }
 }

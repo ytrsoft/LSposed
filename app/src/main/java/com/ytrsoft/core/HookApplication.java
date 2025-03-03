@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.ytrsoft.annotation.Path;
 import com.ytrsoft.annotation.Inject;
-import com.ytrsoft.annotation.Overload;
-import com.ytrsoft.annotation.Type;
+import com.ytrsoft.annotation.Match;
+import com.ytrsoft.annotation.Use;
 import com.ytrsoft.hook.IHook;
 import com.ytrsoft.utils.Lang;
 import com.ytrsoft.utils.Xposed;
@@ -74,8 +74,8 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
 
     private void handleXPath(Class<? extends IHook> hClz, String pkg, String name, IHook hook) {
         boolean isInit = name.equals("$init");
-        if (hClz.isAnnotationPresent(Overload.class)) {
-            Overload overload = hClz.getAnnotation(Overload.class);
+        if (hClz.isAnnotationPresent(Match.class)) {
+            Match overload = hClz.getAnnotation(Match.class);
             if (overload != null) {
                 Class<?>[] types = overload.types();
                 handleTypes(pkg, name, types, hook, isInit);
@@ -100,8 +100,8 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
 
     private void wrapTypes(Class<?>[] args) {
         for (int i = 0; i < args.length; i++) {
-            if (args[i].isAnnotationPresent(Type.class)) {
-                Type type = args[i].getAnnotation(Type.class);
+            if (args[i].isAnnotationPresent(Use.class)) {
+                Use type = args[i].getAnnotation(Use.class);
                 if (type != null) {
                     args[i] = Xposed.find(type.value(), mAppContext.getContextLoader());
                 }
