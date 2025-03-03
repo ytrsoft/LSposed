@@ -9,7 +9,6 @@ import com.ytrsoft.annotation.Overload;
 import com.ytrsoft.annotation.Type;
 import com.ytrsoft.hook.IHook;
 import com.ytrsoft.utils.Lang;
-import com.ytrsoft.utils.OAnnotation;
 import com.ytrsoft.utils.Xposed;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
