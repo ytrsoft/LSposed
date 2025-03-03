@@ -28,7 +28,7 @@ public class AppContext {
         return context;
     }
 
-    public ClassLoader getContextClassLoader() {
+    public ClassLoader getContextLoader() {
         return context.getClassLoader();
     }
 

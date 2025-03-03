@@ -103,7 +103,7 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
             if (args[i].isAnnotationPresent(Type.class)) {
                 Type type = args[i].getAnnotation(Type.class);
                 if (type != null) {
-                    args[i] = Xposed.find(type.value(), mAppContext.getContextClassLoader());
+                    args[i] = Xposed.find(type.value(), mAppContext.getContextLoader());
                 }
             }
         }
