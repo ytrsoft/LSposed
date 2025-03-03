@@ -17,6 +17,6 @@ public class ConnectHook extends DefaultHook {
         Address address = new Address(param.getArg(0));
         String host = address.getHost();
         int port = address.getPort();
-        Logger.i("IMJ %s:%d", host, port);
+        Logger.i("连接到 %s:%d", host, port);
     }
 }

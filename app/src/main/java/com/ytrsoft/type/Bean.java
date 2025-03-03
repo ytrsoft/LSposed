@@ -17,5 +17,5 @@ public abstract class Bean {
     public int getInt(String key) {
         return (int) ReflectUtil.getFieldValue(target, key);
     }
-    
+
 }
