@@ -3,12 +3,11 @@ package com.ytrsoft.core;
 import android.app.Application;
 import android.content.Context;
 
-import com.ytrsoft.annotation.Method;
+import com.ytrsoft.annotation.Path;
 import com.ytrsoft.annotation.Inject;
 import com.ytrsoft.annotation.Overload;
 import com.ytrsoft.hook.IHook;
 import com.ytrsoft.utils.Lang;
-import com.ytrsoft.utils.Logger;
 import com.ytrsoft.utils.OAnnotation;
 import com.ytrsoft.utils.Xposed;
 
@@ -58,9 +57,9 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
     protected void handleMounted(AppContext context) {}
 
     protected void registerHook(IHook hook) {
-        OAnnotation oa = new OAnnotation(hook, Method.class);
+        OAnnotation oa = new OAnnotation(hook, Path.class);
         if (oa.isPresent()) {
-            String[] xPath = Lang.xPath(((Method) oa.get()).value());
+            String[] xPath = Lang.xPath(((Path) oa.get()).value());
             if (xPath.length == 2) {
                 handleXPath(xPath[0], xPath[1], hook);
             }
@@ -68,20 +67,25 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
     }
 
     private void handleXPath(String pkg, String name, IHook hook) {
+        boolean isInit = name.equals("$init");
         OAnnotation oa = new OAnnotation(hook, Overload.class);
         if (oa.isPresent()) {
             Class<?>[] types = ((Overload) oa.get()).types();
-            handleTypes(pkg, name, types, hook);
+            handleTypes(pkg, name, types, hook, isInit);
         } else {
-            handleTypes(pkg, name, new Object[] {}, hook);
+            handleTypes(pkg, name, new Object[] {}, hook, isInit);
         }
     }
 
-    private void handleTypes(String pkg, String name, Object[] types, IHook hook) {
+    private void handleTypes(String pkg, String name, Object[] types, IHook hook, boolean isInit) {
         Class<?> clz = mAppContext.loadClass(pkg);
         XMethod xMethod = new XMethod(hook);
         Object[] args = Lang.merge(types, xMethod);
-        Xposed.invoke(clz, name, args);
+        if (isInit) {
+            Xposed.invoke(clz, args);
+        } else {
+            Xposed.invoke(clz, name, args);
+        }
     }
 
     @Override

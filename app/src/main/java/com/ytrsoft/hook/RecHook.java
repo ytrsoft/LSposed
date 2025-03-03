@@ -3,7 +3,7 @@ package com.ytrsoft.hook;
 
 import android.os.Bundle;
 
-import com.ytrsoft.annotation.Method;
+import com.ytrsoft.annotation.Path;
 import com.ytrsoft.annotation.Overload;
 import com.ytrsoft.core.Param;
 import com.ytrsoft.utils.Logger;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Method("com.immomo.momo.im.e$1.a")
+@Path("com.immomo.momo.im.e$1.a")
 @Overload(types = {
     String.class,
     Bundle.class,
