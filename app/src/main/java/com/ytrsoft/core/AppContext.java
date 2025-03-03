@@ -28,6 +28,10 @@ public class AppContext {
         return context;
     }
 
+    public ClassLoader getContextClassLoader() {
+        return context.getClassLoader();
+    }
+
     public void setContext(Context context) {
         this.context = context;
     }

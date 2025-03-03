@@ -16,6 +16,10 @@ public final class Logger {
         XposedBridge.log(text);
     }
 
+    public static void i(String format, Object... args) {
+        XposedBridge.log(String.format(format, args));
+    }
+
     public static void e(Exception e) {
         XposedBridge.log(e);
     }

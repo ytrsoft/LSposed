@@ -24,7 +24,7 @@ public class RecHook extends DefaultHook {
     @Override
     public void enter(Param param) {
         super.enter(param);
-        Bundle bundle = (Bundle) param.args[1];
+        Bundle bundle = (Bundle) param.getArg(1);
         if (bundle.containsKey("msgs")) {
             Object msgs = bundle.get("msgs");
             if (msgs instanceof ArrayList<?>) {
@@ -44,6 +44,6 @@ public class RecHook extends DefaultHook {
         RObject message = new RObject(msg);
         String id = message.getString("remoteId");
         String content = message.getString("content");
-        Logger.i(String.format("%s:%s", id, content));
+        Logger.i("<%s - %s>", id, content);
     }
 }

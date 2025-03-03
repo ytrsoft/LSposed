@@ -6,6 +6,7 @@ import android.content.Context;
 import com.ytrsoft.annotation.Path;
 import com.ytrsoft.annotation.Inject;
 import com.ytrsoft.annotation.Overload;
+import com.ytrsoft.annotation.Type;
 import com.ytrsoft.hook.IHook;
 import com.ytrsoft.utils.Lang;
 import com.ytrsoft.utils.OAnnotation;
@@ -57,27 +58,34 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
     protected void handleMounted(AppContext context) {}
 
     protected void registerHook(IHook hook) {
-        OAnnotation oa = new OAnnotation(hook, Path.class);
-        if (oa.isPresent()) {
-            String[] xPath = Lang.xPath(((Path) oa.get()).value());
-            if (xPath.length == 2) {
-                handleXPath(xPath[0], xPath[1], hook);
+        Class<? extends IHook> hClz = hook.getClass();
+        if (hClz.isAnnotationPresent(Path.class)) {
+            Path path = hClz.getAnnotation(Path.class);
+            if (path != null) {
+                String[] xPath = Lang.xPath(path.value());
+                if (xPath.length == 2) {
+                    handleXPath(hClz, xPath[0], xPath[1], hook);
+                }
             }
         }
     }
 
-    private void handleXPath(String pkg, String name, IHook hook) {
+    private void handleXPath(Class<? extends IHook> hClz, String pkg, String name, IHook hook) {
         boolean isInit = name.equals("$init");
-        OAnnotation oa = new OAnnotation(hook, Overload.class);
-        if (oa.isPresent()) {
-            Class<?>[] types = ((Overload) oa.get()).types();
-            handleTypes(pkg, name, types, hook, isInit);
-        } else {
-            handleTypes(pkg, name, new Object[] {}, hook, isInit);
+        if (hClz.isAnnotationPresent(Overload.class)) {
+            Overload overload = hClz.getAnnotation(Overload.class);
+            if (overload != null) {
+                Class<?>[] types = overload.types();
+                handleTypes(pkg, name, types, hook, isInit);
+            } else {
+
+                handleTypes(pkg, name, new Class[] {}, hook, isInit);
+            }
         }
     }
 
-    private void handleTypes(String pkg, String name, Object[] types, IHook hook, boolean isInit) {
+    private void handleTypes(String pkg, String name, Class<?>[] types, IHook hook, boolean isInit) {
+        wrapTypes(types);
         Class<?> clz = mAppContext.loadClass(pkg);
         XMethod xMethod = new XMethod(hook);
         Object[] args = Lang.merge(types, xMethod);
@@ -85,6 +93,17 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
             Xposed.invoke(clz, args);
         } else {
             Xposed.invoke(clz, name, args);
+        }
+    }
+
+    private void wrapTypes(Class<?>[] args) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].isAnnotationPresent(Type.class)) {
+                Type type = args[i].getAnnotation(Type.class);
+                if (type != null) {
+                    args[i] = Xposed.find(type.value(), mAppContext.getContextClassLoader());
+                }
+            }
         }
     }
 

@@ -6,11 +6,11 @@ import de.robv.android.xposed.XC_MethodHook;
 
 public class Param {
 
-    public Member method;
+    private Member method;
 
-    public Object thisObject;
+    private Object thisObject;
 
-    public Object[] args;
+    private Object[] args;
 
     private final XC_MethodHook.MethodHookParam param;
 
@@ -49,4 +49,11 @@ public class Param {
         return param.getThrowable();
     }
 
+    public Object getArg(int index) {
+        return args[index];
+    }
+
+    public XC_MethodHook.MethodHookParam getParam() {
+        return param;
+    }
 }

@@ -3,6 +3,7 @@ package com.ytrsoft;
 import com.ytrsoft.core.HookApplication;
 import com.ytrsoft.annotation.Inject;
 import com.ytrsoft.core.AppContext;
+import com.ytrsoft.hook.ConnectHook;
 import com.ytrsoft.hook.RecHook;
 import com.ytrsoft.utils.Logger;
 
@@ -18,6 +19,7 @@ public class MomoApp extends HookApplication {
     @Override
     protected void handleMounted(AppContext context) {
         super.handleMounted(context);
+        registerHook(new ConnectHook());
         registerHook(new RecHook());
     }
 
