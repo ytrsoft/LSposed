@@ -6,8 +6,6 @@ import com.ytrsoft.core.AppContext;
 import com.ytrsoft.hook.AuthHook;
 import com.ytrsoft.hook.ConnectHook;
 import com.ytrsoft.hook.RecHook;
-import com.ytrsoft.hook.StartHook;
-import com.ytrsoft.hook.StopHook;
 import com.ytrsoft.utils.Logger;
 
 @Inject("com.immomo.momo")
@@ -22,8 +20,6 @@ public class MomoApp extends HookApplication {
     @Override
     protected void handleMounted(AppContext context) {
         super.handleMounted(context);
-        registerHook(new StartHook());
-        registerHook(new StopHook());
         registerHook(new AuthHook());
         registerHook(new ConnectHook());
         registerHook(new RecHook());
