@@ -1,5 +1,7 @@
 package com.ytrsoft.core;
 
+import com.ytrsoft.utils.Xposed;
+
 import java.lang.reflect.Member;
 
 import de.robv.android.xposed.XC_MethodHook;
@@ -51,6 +53,10 @@ public class Param {
 
     public Object getArg(int index) {
         return args[index];
+    }
+
+    public Object getProps(String key) {
+        return Xposed.get(thisObject, key);
     }
 
     public XC_MethodHook.MethodHookParam getParam() {

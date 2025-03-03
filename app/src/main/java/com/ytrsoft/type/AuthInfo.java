@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.ytrsoft.annotation.Use;
 
-@Use("com.immomo.im.Address")
+@Use("com.immomo.im.AuthInfo")
 public class AuthInfo extends Bean {
 
     private String cflag;
