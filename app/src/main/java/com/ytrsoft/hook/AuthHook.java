@@ -6,7 +6,7 @@ import com.ytrsoft.core.Param;
 import com.ytrsoft.type.AuthInfo;
 import com.ytrsoft.utils.Logger;
 
-@Path("com.immomo.im.setAuthInfo")
+@Path("com.immomo.im.IMJConnectionManager.setAuthInfo")
 @Match(types = {
   AuthInfo.class
 })
