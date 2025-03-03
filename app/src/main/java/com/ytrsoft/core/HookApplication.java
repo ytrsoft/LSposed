@@ -21,9 +21,12 @@ public abstract class HookApplication implements IXposedHookZygoteInit, IXposedH
     private String mPackageName;
 
     public HookApplication() {
-        OAnnotation oa = new OAnnotation(this, Inject.class);
-        if (oa.isPresent()) {
-            mPackageName = ((Inject) oa.get()).value();
+        Class<? extends HookApplication> aClz = this.getClass();
+        if (aClz.isAnnotationPresent(Inject.class)) {
+            Inject inject = aClz.getAnnotation(Inject.class);
+            if (inject != null) {
+                mPackageName = inject.value();
+            }
         }
     }
 
