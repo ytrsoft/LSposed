@@ -13,7 +13,7 @@ public class MomoApp extends HookApplication {
     @Override
     protected void handleCreated(AppContext context) {
         super.handleCreated(context);
-        Logger.i("陌陌模块启动");
+        Logger.i("陌陌启动");
     }
 
     @Override
