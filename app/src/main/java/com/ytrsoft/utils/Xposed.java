@@ -24,4 +24,8 @@ public final class Xposed {
         return XposedHelpers.callStaticMethod(clz, name, args);
     }
 
+    public static Class<?> find(String pkg, ClassLoader classLoader) {
+        return XposedHelpers.findClass(pkg, classLoader);
+    }
+
 }
