@@ -1,7 +1,5 @@
 package com.ytrsoft.type;
 
-import com.ytrsoft.utils.RObject;
-
 import cn.hutool.core.util.ReflectUtil;
 
 public abstract class Bean {
@@ -19,13 +17,5 @@ public abstract class Bean {
     public int getInt(String key) {
         return (int) ReflectUtil.getFieldValue(target, key);
     }
-
-    public RObject getObject(String key) {
-        return new RObject(ReflectUtil.getFieldValue(target, key));
-    }
-
-    public RObject invoke(String name, Object... args) {
-        return new RObject(ReflectUtil.invoke(target, name, args));
-    }
-
+    
 }

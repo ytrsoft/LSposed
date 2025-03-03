@@ -5,7 +5,6 @@ import com.ytrsoft.annotation.Path;
 import com.ytrsoft.core.Param;
 import com.ytrsoft.type.Address;
 import com.ytrsoft.utils.Logger;
-import com.ytrsoft.utils.RObject;
 
 @Path("com.immomo.momo.android.service.MyAddressProvider.connectSuccess")
 @Match(types = {
